@@ -1,0 +1,1 @@
+{"version":3,"file":"numeral.esm.js","sources":["../src/numeral.ts"],"sourcesContent":["function numeral(input: string | number): string {\n    return input.toString();\n}\n\nexport { numeral };\n"],"names":["numeral","input","toString"],"mappings":"AAAA,SAASA,OAAT,CAAiBC,KAAjB;EACI,OAAOA,KAAK,CAACC,QAAN,EAAP;AACH;;;;"}
