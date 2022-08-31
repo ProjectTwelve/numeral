@@ -1,5 +1,5 @@
 function numeral(input: string | number): string {
-    return input.toString();
+  return input.toString();
 }
 
 export { numeral };
