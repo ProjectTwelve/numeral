@@ -10,8 +10,5 @@ describe('numeral', () => {
         it('xxx', () => {
             expect(numeral(1)).toEqual('1');
         });
-        it('xxx', () => {
-            expect(numeral(203729)).toEqual('2.037k');
-        });
     });
 });
