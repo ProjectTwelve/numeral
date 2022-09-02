@@ -1,4 +1,25 @@
-import { numeral } from '../src';
+import { numeral, parseInput } from '../src';
+
+describe('parseInput', () => {
+    it('parse number', () => {
+       expect(parseInput(1)).toBe('1');
+       expect(parseInput(2)).toBe('2');
+       expect(parseInput(1.5)).toBe('1.5');
+       expect(parseInput(2.0)).toBe('2');
+       expect(parseInput(0.99)).toBe('0.99');
+       expect(parseInput(-1)).toBe('-1');
+       expect(parseInput(-0.5)).toBe('-0.5');
+    });
+    it('parse string', () => {
+        expect(parseInput('1')).toBe('1');
+        expect(parseInput('1.0')).toBe('1');
+        expect(parseInput('1.')).toBe('1');
+        expect(parseInput('0.666')).toBe('0.666');
+        expect(parseInput('-0.666')).toBe('-0.666');
+        // parse error
+        expect(parseInput('-abc')).toBe('0');
+    });
+});
 
 describe('numeral', () => {
   describe('gamecoin unit display', () => {
@@ -103,7 +124,7 @@ describe('numeral', () => {
           //     expect(numeral()).toEqual('');
           // });
       })
-      
+
   });
   describe('transfer unit display', () => {
       it('xxx', () => {
