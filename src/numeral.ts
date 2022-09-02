@@ -20,15 +20,19 @@ class Numeral {
     this._num_raw = Number(input);
   }
 
-  format(unit: NumeralType = NumeralType.Token): string {
-    if (unit === NumeralType.Token || unit === NumeralType.GameCoin) {
+  /**
+   * format token | coin | tx
+   * @param {NumeralType} type
+   */
+  format(type: NumeralType = NumeralType.Token): string {
+    if (type === NumeralType.Token || type === NumeralType.GameCoin) {
       if (this._num_raw < ONE) {
         if (this._num_raw < MIN) return new Decimal(this._raw).todp(8).toFixed();
         return _numeral(this._raw).format('0.[00000000]');
       }
       return _numeral(this._raw).format('0.[000]a');
     }
-    if (unit === NumeralType.Transfer) {
+    if (type === NumeralType.Transfer) {
       if (this._num_raw < ONE) {
         if (this._num_raw < MIN) {
           Decimal.set({ precision: 2, rounding: Decimal.ROUND_HALF_UP });
