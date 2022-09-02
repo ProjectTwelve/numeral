@@ -104,8 +104,6 @@ describe('numeral', () => {
         expect(numeral('0.00000000183749').format(NumeralType.Token)).toEqual('0');
       });
       it('round up eight decimal', () => {
-        console.log(numeral('0.00000000783749').format(NumeralType.Token));
-        console.log('0.00000001');
         expect(numeral('0.00000000783749').format(NumeralType.Token)).toBe('0.00000001');
       });
       it('cut zero eight decimal', () => {
