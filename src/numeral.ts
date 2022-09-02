@@ -49,7 +49,7 @@ class Numeral {
  * Attempt to parse the number, or return 0 if parsing fail
  * @param {string | number} input
  */
-function parseInput(input: string | number) {
+function parsedInput(input: string | number): string {
   if (typeof input === 'number') return input.toString();
   const value = Number(input);
   if (isNaN(value)) return '0';
@@ -62,7 +62,7 @@ function parseInput(input: string | number) {
  * @param input
  */
 function numeral(input: string | number): Numeral {
-  return new Numeral(parseInput(input));
+  return new Numeral(parsedInput(input));
 }
 
-export { numeral, parseInput, NumeralType };
+export { numeral, parsedInput, NumeralType };

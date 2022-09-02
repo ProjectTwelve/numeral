@@ -1,22 +1,22 @@
-import { numeral, NumeralType, parseInput } from '../src';
+import { numeral, NumeralType, parsedInput } from '../src';
 
-describe('parseInput', () => {
+describe('parsedInput', () => {
   it('parse number', () => {
-    expect(parseInput(1)).toBe('1');
-    expect(parseInput(2)).toBe('2');
-    expect(parseInput(1.5)).toBe('1.5');
-    expect(parseInput(2.0)).toBe('2');
-    expect(parseInput(0.99)).toBe('0.99');
-    expect(parseInput(-1)).toBe('-1');
-    expect(parseInput(-0.5)).toBe('-0.5');
+    expect(parsedInput(1)).toBe('1');
+    expect(parsedInput(2)).toBe('2');
+    expect(parsedInput(1.5)).toBe('1.5');
+    expect(parsedInput(2.0)).toBe('2');
+    expect(parsedInput(0.99)).toBe('0.99');
+    expect(parsedInput(-1)).toBe('-1');
+    expect(parsedInput(-0.5)).toBe('-0.5');
   });
   it('parse string', () => {
-    expect(parseInput('1')).toBe('1');
-    expect(parseInput('1.0')).toBe('1.0');
-    expect(parseInput('0.666')).toBe('0.666');
-    expect(parseInput('-0.666')).toBe('-0.666');
+    expect(parsedInput('1')).toBe('1');
+    expect(parsedInput('1.0')).toBe('1.0');
+    expect(parsedInput('0.666')).toBe('0.666');
+    expect(parsedInput('-0.666')).toBe('-0.666');
     // parse error
-    expect(parseInput('-abc')).toBe('0');
+    expect(parsedInput('-abc')).toBe('0');
   });
 });
 
