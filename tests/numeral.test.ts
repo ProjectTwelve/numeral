@@ -23,7 +23,7 @@ describe('parseInput', () => {
 
 describe('numeral', () => {
   describe('gamecoin unit display', () => {
-      describe('no greater than 10000', () => {
+      describe('no greater than 1000', () => {
           it('one int digit display as input', () => {
               expect(numeral(0)).toEqual('0');
           });
@@ -38,6 +38,9 @@ describe('numeral', () => {
           // it('max edge value',() => {
           //     expect(numeral()).toEqual('');
           // })
+          it('one int digits', () => {
+            expect(numeral('1028')).toEqual('1.028K');
+          });
           it('two int digits', () => {
               expect(numeral('10001')).toEqual('10.001K');
           });
@@ -92,7 +95,7 @@ describe('numeral', () => {
       });
   });
   describe('token unit display', () => {
-      describe('no greater than 0', () => {
+      describe('no greater than 1', () => {
           it('display as input', () => {
               expect(numeral('0.12837784')).toEqual('0.12837784');
           });
@@ -114,21 +117,101 @@ describe('numeral', () => {
           it('cut zero eight decimal', () => {
               expect(numeral('0.0008000000008786')).toEqual('0.0008');
           });
-          // it('', () => {
-          //     expect(numeral()).toEqual('');
-          // });
-          // it('', () => {
-          //     expect(numeral()).toEqual('');
-          // });
-          // it('', () => {
-          //     expect(numeral()).toEqual('');
-          // });
-      })
+      });
+      describe('no greater than 1000', () => {
+        it('round up one int digit', () => {
+          expect(numeral('1.9807543')).toEqual('1.981');
+        });
+        it('round down two int digits', () => {
+            expect(numeral('18.92010001')).toEqual('19.92');
+        });
+        it('round up three int digits', () => {
+            expect(numeral('283.923790')).toEqual('283.924');
+        });
+      });
+      describe('unit K displat', () => {
+        it('round down one int digit', () => {
+          expect(numeral('4710.0100002')).toEqual('4.71K');
+        });
+        it('round up two int digits', () => {
+          expect(numeral('92001.709821')).toEqual('92.002K');
+        });
+        it('round down three in digits', () => {
+          expect(numeral('245075.1008')).toEqual('245.075K');
+        });
+        it('round down cut zero', () => {
+          expect(numeral('200000.8292')).toEqual('200K');
+        });
 
+      });
+      describe('unit M displat', () => {
+        it('round down one int digit', () => {
+          expect(numeral('1293092.2837')).toEqual('1.293M');
+        });
+        it('round up two int digits', () => {
+          expect(numeral('82029720.0003927')).toEqual('82.03M');
+        });
+        it('round down three in digits', () => {
+          expect(numeral('182938222.98281')).toEqual('182.938M');
+        });
+        it('round down cut zero', () => {
+          expect(numeral('200000.8292')).toEqual('200K');
+        });
+      });
+      describe('unit B displat', () => {
+        it('round up one int digit', () => {
+          expect(numeral('1283992333.282730')).toEqual('1.284B');
+        });
+        it('round down two int digits', () => {
+          expect(numeral('82932000293.2028')).toEqual('82.932B');
+        });
+        it('round down cut zero three in digits', () => {
+          expect(numeral('192000000283.9382')).toEqual('192B');
+        });
+      });
+      describe('unit T displat', () => {
+        it('round down cut zero one int digit', () => {
+          expect(numeral('8100100000383.23081')).toEqual('8.1T');
+        });
+        it('round down two int digits', () => {
+          expect(numeral('12978020000839.89192')).toEqual('12.978T');
+        });
+        it('round down three in digits', () => {
+          expect(numeral('220130000000000.10192')).toEqual('220.13T');
+        });
+      });
   });
   describe('transfer unit display', () => {
-      it('xxx', () => {
-          expect(numeral(1)).toEqual('1');
+    describe('no greater than 1', () => {
+      it('round down', () => {
+        expect(numeral("0.937839292")).toEqual("0.93783929");
       });
+      it('round up', () => {
+        expect(numeral("0.000281448")).toEqual("0.00028145");
+      });
+      it('cut zero', () => {
+        expect(numeral("0.00060000")).toEqual("0.0006");
+      });
+      it('first effect digit', () => {
+        expect(numeral("0.000000001928")).toEqual("0.000000002");
+      });
+    });
+    describe('normal total eight digits', () => {
+      it('display init', () => {
+        expect(numeral("23.973628")).toEqual("23.973628");
+      });
+      it('round down total eight digits', () => {
+        expect(numeral("8798.087533908")).toEqual("8798.0875");
+      });
+      it('round down total eight digits', () => {
+        expect(numeral("100003.290383")).toEqual("100003.29");
+      });
+      it('round up total eight digits', () => {
+        expect(numeral("19200093.92910")).toEqual("19200094");
+      });
+      it('round down cut decimal', () => {
+        expect(numeral("20394374882.012837")).toEqual("20394374882");
+      });
+    });
   });
 });
