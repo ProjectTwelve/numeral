@@ -182,6 +182,18 @@ describe('numeral', () => {
         expect(numeral('220130000000000.10192').format(NumeralType.Token)).toEqual('220.13t');
       });
     });
+
+    describe('add decimal places', () => {
+      it('display as input', () => {
+        expect(numeral('0.12837784').format(NumeralType.Token, 2)).toEqual('0.13');
+      });
+      it('round up one int digit', () => {
+        expect(numeral('1.9807543').format(NumeralType.Token, 3)).toEqual('1.981');
+      });
+      it('round down one int digit', () => {
+        expect(numeral('4710.0100002').format(NumeralType.Token, 1)).toEqual('4.7k');
+      });
+    });
   });
 
   describe('transfer unit display', () => {

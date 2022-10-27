@@ -13,34 +13,37 @@ const ONE = 1;
 
 class Numeral {
   private readonly _raw: string;
-  private readonly _num_raw: number;
+  private readonly _num_abs: number;
 
   constructor(input: string) {
     this._raw = input;
-    this._num_raw = Number(input);
+    this._num_abs = Math.abs(Number(input));
   }
 
   /**
    * format token | coin | tx
    * @param {NumeralType} type
+   * @param {number} decimalPlaces
    */
-  format(type: NumeralType = NumeralType.Token): string {
+  format(type: NumeralType = NumeralType.Token, decimalPlaces?: number): string {
     if (type === NumeralType.Token || type === NumeralType.GameCoin) {
-      if (this._num_raw < ONE) {
-        if (this._num_raw < MIN) return new Decimal(this._raw).todp(8).toFixed();
-        return _numeral(this._raw).format('0.[00000000]');
+      if (this._num_abs < ONE) {
+        if (this._num_abs < MIN) return new Decimal(this._raw).todp(decimalPlaces ?? 8).toFixed();
+        const formatInputString = decimalPlaces ? `0.[${''.padStart(decimalPlaces, '0')}]` : '0.[00000000]';
+        return _numeral(this._raw).format(formatInputString);
       }
-      return _numeral(this._raw).format('0.[000]a');
+      const formatInputString = decimalPlaces ? `0.[${''.padStart(decimalPlaces, '0')}]a` : '0.[000]a';
+      return _numeral(this._raw).format(formatInputString);
     }
     if (type === NumeralType.Transfer) {
-      if (this._num_raw < ONE) {
-        if (this._num_raw < MIN) {
+      if (this._num_abs < ONE) {
+        if (this._num_abs < MIN) {
           Decimal.set({ precision: 2, rounding: Decimal.ROUND_HALF_UP });
           return new Decimal(this._raw).toSignificantDigits(1).toFixed();
         }
         return _numeral(this._raw).format('0.[00000000]');
       }
-      if (this._num_raw < MAX) {
+      if (this._num_abs < MAX) {
         return new Decimal(this._raw).toSignificantDigits(8).toFixed();
       }
       return _numeral(this._raw).format('0');
