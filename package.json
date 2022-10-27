@@ -1,6 +1,6 @@
 {
-  "name": "numeral",
-  "version": "1.0.0",
+  "name": "@p12/numeral",
+  "version": "1.0.1",
   "license": "MIT",
   "author": "Lincheng <1139489076@qq.com>",
   "description": "format number",
