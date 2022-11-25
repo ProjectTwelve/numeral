@@ -24,6 +24,8 @@ enum NumeralType {
   GameCoin,
   Token,
   Transfer,
+  Balance,
+  USD,
 }
 ```
 

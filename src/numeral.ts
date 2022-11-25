@@ -5,6 +5,8 @@ enum NumeralType {
   GameCoin,
   Token,
   Transfer,
+  Balance,
+  USD,
 }
 
 const MAX = 10000000;
@@ -26,9 +28,22 @@ class Numeral {
    * @param {number} decimalPlaces
    */
   format(type: NumeralType = NumeralType.Token, decimalPlaces?: number): string {
+    if (type === NumeralType.Balance) {
+      if (this._num_abs < ONE) {
+        return new Decimal(this._raw).toDecimalPlaces(decimalPlaces ?? 6).toFixed();
+      }
+      return new Decimal(this._raw).toSignificantDigits(decimalPlaces ?? 7).toFixed();
+    }
+    if (type === NumeralType.USD) {
+      if (this._num_abs < ONE) {
+        const dec = new Decimal(this._raw).toDecimalPlaces(decimalPlaces ?? 4);
+        return dec.eq(1) ? dec.toFixed(2) : dec.toFixed();
+      }
+      return new Decimal(this._raw).toFixed(decimalPlaces ?? 2);
+    }
     if (type === NumeralType.Token || type === NumeralType.GameCoin) {
       if (this._num_abs < ONE) {
-        if (this._num_abs < MIN) return new Decimal(this._raw).todp(decimalPlaces ?? 8).toFixed();
+        if (this._num_abs < MIN) return new Decimal(this._raw).toDecimalPlaces(decimalPlaces ?? 8).toFixed();
         const formatInputString = decimalPlaces ? `0.[${''.padStart(decimalPlaces, '0')}]` : '0.[00000000]';
         return _numeral(this._raw).format(formatInputString);
       }
