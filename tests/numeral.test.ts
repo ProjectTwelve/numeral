@@ -231,6 +231,87 @@ describe('numeral', () => {
     });
   });
 
+
+  describe('p12 token unit display', () => {
+    describe('greater than 1', () => {
+      it('directly diplay total 7 digits', () => {
+        expect(numeral('1.234567').format(NumeralType.Transfer)).toEqual('1.234567');
+      });
+      it('round up total 7 digits', () => {
+        expect(numeral('2389.392501').format(NumeralType.Transfer)).toEqual('2389.393');
+      });
+      it('round down total 7 digits', () => {
+        expect(numeral('117.392341').format(NumeralType.Transfer)).toEqual('117.3923');
+      });
+      it('round up cut zero', () => {
+        expect(numeral('7.3999999999').format(NumeralType.Transfer)).toEqual('7.4');
+      });
+    })
+    describe('no greater than 1', () => {
+      it('max 6 decimal round up', () => {
+        expect(numeral('0.0000009').format(NumeralType.Transfer)).toEqual('0.000001');
+      });
+      it('max 6 decimal round down', () => {
+        expect(numeral('0.0000004').format(NumeralType.Transfer)).toEqual('0');
+      });
+      it('ngt 0.0000004 cut to zero', () => {
+        expect(numeral('0.00000009203782').format(NumeralType.Transfer)).toEqual('0');
+      });
+      it('round up', () => {
+        expect(numeral('0.008992876').format(NumeralType.Transfer)).toEqual('0.008993');
+      });
+      it('round down', () => {
+        expect(numeral('0.003422311').format(NumeralType.Transfer)).toEqual('0.003422');
+      });
+      it('round up cut zero', () => {
+        expect(numeral('0.0000995').format(NumeralType.Transfer)).toEqual('0.0001');
+      });
+    })
+
+  });
+
+  describe('usd(cash) unit display', () => {
+    describe('greater than 1, directly display integer and always keep 2 decimal', () => {
+      it('round up', () => {
+        expect(numeral('117.392341').format(NumeralType.Transfer)).toEqual('117.39');
+      });
+      it('round down', () => {
+        expect(numeral('1899.03211').format(NumeralType.Transfer)).toEqual('1899.03');
+      });
+      it('round up cut zero', () => {
+        expect(numeral('1898.995').format(NumeralType.Transfer)).toEqual('1899.00');
+      });
+      it('round up more digits (btc)', () => {
+        expect(numeral('16400.579203').format(NumeralType.Transfer)).toEqual('16400.58');
+      });
+
+    })
+    describe('no greater than 1', () => {
+      it('max 4 decimal round up', () => {
+        expect(numeral('0.00005').format(NumeralType.Transfer)).toEqual('0.0001');
+      });
+      it('max 4 decimal round down', () => {
+        expect(numeral('0.00004').format(NumeralType.Transfer)).toEqual('0');
+      });
+      it('ngt 0.00004 cut to zero', () => {
+        expect(numeral('0.000001214').format(NumeralType.Transfer)).toEqual('0');
+      });
+      it('round up', () => {
+        expect(numeral('0.008172876').format(NumeralType.Transfer)).toEqual('0.0082');
+      });
+      it('round down', () => {
+        expect(numeral('0.11033024889').format(NumeralType.Transfer)).toEqual('0.1103');
+      });
+      it('round up cut zero', () => {
+        expect(numeral('0.379989001').format(NumeralType.Transfer)).toEqual('0.38');
+      });
+      it('round up cut zero to 1', () => {
+        expect(numeral('0.99995').format(NumeralType.Transfer)).toEqual('1.00');
+      });
+    })
+
+  });
+
   it('other', () => {
     expect(numeral('123').format(5)).toEqual('0');
   });
