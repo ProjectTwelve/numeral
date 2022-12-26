@@ -1,6 +1,6 @@
 {
   "name": "@p12/numeral",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "author": "Lincheng <1139489076@qq.com>",
   "description": "format number",
@@ -11,6 +11,11 @@
     "dist",
     "src"
   ],
+  "repository": {
+    "url": "https://github.com/ProjectTwelve/numeral",
+    "type": "git"
+  },
+  "homepage": "https://github.com/ProjectTwelve/numeral#readme",
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
