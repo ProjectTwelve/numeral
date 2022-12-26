@@ -101,10 +101,10 @@ describe('numeral', () => {
         expect(numeral('0.008600889').format(NumeralType.Token)).toEqual('0.00860089');
       });
       it('two small', () => {
-        expect(numeral('0.00000000183749').format(NumeralType.Token)).toEqual('0');
+        expect(numeral('0.00000000183749').format(NumeralType.Token)).toEqual('<0.00000001');
       });
       it('round up eight decimal', () => {
-        expect(numeral('0.00000000783749').format(NumeralType.Token)).toBe('0.00000001');
+        expect(numeral('0.00000000783749').format(NumeralType.Token)).toBe('<0.00000001');
       });
       it('cut zero eight decimal', () => {
         expect(numeral('0.0008000000008786').format(NumeralType.Token)).toEqual('0.0008');
@@ -208,7 +208,7 @@ describe('numeral', () => {
         expect(numeral('0.00060000').format(NumeralType.Transfer)).toEqual('0.0006');
       });
       it('first effect digit', () => {
-        expect(numeral('0.000000001928').format(NumeralType.Transfer)).toEqual('0.000000002');
+        expect(numeral('0.000000001928').format(NumeralType.Transfer)).toEqual('<0.00000001');
       });
     });
 

@@ -28,6 +28,7 @@ class Numeral {
    * @param {number} decimalPlaces
    */
   format(type: NumeralType = NumeralType.Token, decimalPlaces?: number): string {
+    if (this._num_abs === 0) return '0';
     if (type === NumeralType.Balance) {
       if (this._num_abs < ONE) {
         return new Decimal(this._raw).toDecimalPlaces(decimalPlaces ?? 6).toFixed();
@@ -43,7 +44,7 @@ class Numeral {
     }
     if (type === NumeralType.Token || type === NumeralType.GameCoin) {
       if (this._num_abs < ONE) {
-        if (this._num_abs < MIN) return new Decimal(this._raw).toDecimalPlaces(decimalPlaces ?? 8).toFixed();
+        if (this._num_abs < MIN) return '<' + MIN.toFixed(8);
         const formatInputString = decimalPlaces ? `0.[${''.padStart(decimalPlaces, '0')}]` : '0.[00000000]';
         return _numeral(this._raw).format(formatInputString);
       }
@@ -52,10 +53,7 @@ class Numeral {
     }
     if (type === NumeralType.Transfer) {
       if (this._num_abs < ONE) {
-        if (this._num_abs < MIN) {
-          Decimal.set({ precision: 2, rounding: Decimal.ROUND_HALF_UP });
-          return new Decimal(this._raw).toSignificantDigits(1).toFixed();
-        }
+        if (this._num_abs < MIN) return '<' + MIN.toFixed(8);
         return _numeral(this._raw).format('0.[00000000]');
       }
       if (this._num_abs < MAX) {
