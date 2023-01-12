@@ -45,8 +45,7 @@ class Numeral {
     if (type === NumeralType.Token || type === NumeralType.GameCoin) {
       if (this._num_abs < ONE) {
         if (this._num_abs < MIN) return '<' + MIN.toFixed(8);
-        const formatInputString = decimalPlaces ? `0.[${''.padStart(decimalPlaces, '0')}]` : '0.[00000000]';
-        return _numeral(this._raw).format(formatInputString);
+        return new Decimal(this._raw).toDecimalPlaces(decimalPlaces ?? 8).toFixed();
       }
       const formatInputString = decimalPlaces ? `0.[${''.padStart(decimalPlaces, '0')}]a` : '0.[000]a';
       return _numeral(this._raw).format(formatInputString);
@@ -54,7 +53,7 @@ class Numeral {
     if (type === NumeralType.Transfer) {
       if (this._num_abs < ONE) {
         if (this._num_abs < MIN) return '<' + MIN.toFixed(8);
-        return _numeral(this._raw).format('0.[00000000]');
+        return new Decimal(this._raw).toDecimalPlaces(decimalPlaces ?? 8).toFixed();
       }
       if (this._num_abs < MAX) {
         return new Decimal(this._raw).toSignificantDigits(8).toFixed();
